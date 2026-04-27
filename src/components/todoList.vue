@@ -10,6 +10,25 @@ const isDark = ref(false);
 const filter = ref("all");
 const showDeleteModal = ref(false);
 const deleteId = ref(null);
+const draggingTodo = ref(null);
+
+function onDragStart(todo) {
+  draggingTodo.value = todo;
+}
+
+function onDrop(todo) {
+  if (!draggingTodo.value) return;
+
+  const fromIndex = todos.value.findIndex(
+    (t) => t.id === draggingTodo.value.id,
+  );
+  const toIndex = todos.value.findIndex((t) => t.id === todo.id);
+
+  const movedItem = todos.value.splice(fromIndex, 1)[0];
+  todos.value.splice(toIndex, 0, movedItem);
+
+  draggingTodo.value = null;
+}
 
 /* ---------------- LOAD ---------------- */
 onMounted(() => {
@@ -209,6 +228,10 @@ function getTodo() {
         <li
           v-for="todo in getTodo()"
           :key="todo.id"
+          draggable="true"
+          @dragstart="onDragStart(todo)"
+          @dragover.prevent
+          @drop="onDrop(todo)"
           :class="isDark ? 'bg-gray-700 text-white' : 'bg-gray-100 text-black'"
           class="flex items-center justify-between p-3 transition rounded-lg shadow-sm"
         >
