@@ -39,22 +39,21 @@ function sortTodos() {
   todos.value.sort((a, b) => a.completed - b.completed);
 }
 
+// // add only
 // function submitTodo() {
 //   if (!task.value.trim()) return;
 
-//   const newTodo = {
+//   todos.value.push({
 //     id: Date.now(),
 //     text: task.value,
 //     completed: false,
-//   };
-
-//   todos.value.push(newTodo);
+//   });
 
 //   task.value = "";
-
-//   sortTodos();
 // }
+
 /* ---------------- ADD / EDIT ---------------- */
+
 function submitTodo() {
   if (!task.value.trim()) return;
 
@@ -119,15 +118,15 @@ function getTodo() {
 <template>
   <div
     :class="isDark ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'"
-    class="min-h-screen flex items-center justify-center px-4 transition duration-300"
+    class="flex items-center justify-center min-h-screen px-4 transition duration-300"
   >
     <!-- CARD -->
     <div
       :class="isDark ? 'bg-gray-800' : 'bg-white'"
-      class="w-full max-w-md rounded-2xl shadow-2xl p-6 transition"
+      class="w-full max-w-md p-6 transition shadow-2xl rounded-2xl"
     >
       <!-- HEADER -->
-      <div class="flex justify-between items-center mb-5">
+      <div class="flex items-center justify-between mb-5">
         <h1 class="text-2xl font-bold">📝 To-Do List</h1>
 
         <button
@@ -150,7 +149,7 @@ function getTodo() {
                 ? 'bg-gray-700'
                 : 'bg-gray-200'
           "
-          class="px-3 py-1 rounded transition"
+          class="px-3 py-1 transition rounded"
         >
           All
         </button>
@@ -164,7 +163,7 @@ function getTodo() {
                 ? 'bg-gray-700'
                 : 'bg-gray-200'
           "
-          class="px-3 py-1 rounded transition"
+          class="px-3 py-1 transition rounded"
         >
           Pending
         </button>
@@ -178,7 +177,7 @@ function getTodo() {
                 ? 'bg-gray-700'
                 : 'bg-gray-200'
           "
-          class="px-3 py-1 rounded transition"
+          class="px-3 py-1 transition rounded"
         >
           Completed
         </button>
@@ -199,7 +198,7 @@ function getTodo() {
         />
 
         <button
-          class="bg-red-500 hover:bg-red-600 text-white px-4 rounded-lg transition"
+          class="px-4 text-white transition bg-red-500 rounded-lg hover:bg-red-600"
         >
           {{ editingId === null ? "ADD" : "SAVE" }}
         </button>
@@ -211,7 +210,7 @@ function getTodo() {
           v-for="todo in getTodo()"
           :key="todo.id"
           :class="isDark ? 'bg-gray-700 text-white' : 'bg-gray-100 text-black'"
-          class="flex justify-between items-center p-3 rounded-lg shadow-sm transition"
+          class="flex items-center justify-between p-3 transition rounded-lg shadow-sm"
         >
           <!-- LEFT -->
           <div class="flex items-center gap-2">
@@ -253,14 +252,14 @@ function getTodo() {
       <!-- DELETE MODAL -->
       <div
         v-if="showDeleteModal"
-        class="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
       >
         <div
-          class="bg-white flex flex-col gap-4 dark:bg-gray-800 p-6 rounded-xl shadow-xl w-80 text-center"
+          class="flex flex-col gap-4 p-6 text-center bg-white shadow-xl dark:bg-gray-800 rounded-xl w-80"
         >
-          <h2 class="text-lg font-bold mb-3">Delete Task?</h2>
+          <h2 class="mb-3 text-lg font-bold">Delete Task?</h2>
 
-          <p class="text-sm text-gray-500 mb-5">
+          <p class="mb-5 text-sm text-gray-500">
             This action cannot be undone.
           </p>
 
@@ -274,7 +273,7 @@ function getTodo() {
 
             <button
               @click="confirmDelete"
-              class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600"
             >
               Delete
             </button>
