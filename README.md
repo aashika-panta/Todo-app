@@ -15,3 +15,4 @@ It allows users to add, edit, delete, filter tasks, and stores data in local sto
 - Dark / Light mode toggle
 - Auto save using localStorage
 - Responsive UI for mobile & desktop
+- Drag and Drop
